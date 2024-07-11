@@ -5,16 +5,19 @@ var reply_click = function()
 
     switch (this.id) {
       case "Default":
-        console.log("Default func");
+        console.log("Default mode");
+        enableProxy();
         break;
       case "All":
-        console.log("All func");
+        console.log("Proxy All mode");
+        allProxy();
         break;
       case "Disable":
-        console.log("Disable func");
+        console.log("Disable mode");
+        disableProxy();
         break;
       case "Options":
-        console.log("Options func");
+        console.log("Options page");
         openOptionsPage();
     }
 }
@@ -29,4 +32,40 @@ function openOptionsPage() {
     url: "../options/options.html"
   };
   browser.tabs.create(createData);
+}
+
+function disableProxy() {
+  browser.browserAction.setIcon({
+    path: {
+      32: "../icons/wormhole3.png",
+    },
+  });
+  
+  browser.runtime.sendMessage({
+    workMode: -1,
+  });
+}
+
+function enableProxy() {
+  browser.browserAction.setIcon({
+    path: {
+      32: "../icons/wormhole.png",
+    },
+  });
+
+  browser.runtime.sendMessage({
+    workMode: 0,
+  });
+}
+
+function allProxy() {
+  browser.browserAction.setIcon({
+    path: {
+      32: "../icons/wormhole1.png",
+    },
+  });
+
+  browser.runtime.sendMessage({
+    workMode: 1,
+  });
 }

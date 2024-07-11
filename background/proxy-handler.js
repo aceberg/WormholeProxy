@@ -1,48 +1,60 @@
-// Initialize the list of blocked hosts
-let blockedHosts = ["example.com", "example.org", "2ip.ru"];
 
-// Set the default list on installation.
+let proxyHosts = ["example.com", "example.org", "2ip.ru"];
+let pServer = {id: 1, type:"socks", host: "127.0.0.1", port: 1084};
+let workMode = 0;
+
+
 browser.runtime.onInstalled.addListener(details => {
   browser.storage.local.set({
-    blockedHosts: blockedHosts
+    proxyHosts: proxyHosts
   });
 });
 
-// Get the stored list
+
 browser.storage.local.get(data => {
-  if (data.blockedHosts) {
-    blockedHosts = data.blockedHosts;
+  if (data.proxyHosts) {
+    proxyHosts = data.proxyHosts;
   }
 });
 
-// Listen for changes in the blocked list
-browser.storage.onChanged.addListener(changeData => {
-  blockedHosts = changeData.blockedHosts.newValue;
+browser.storage.local.get(data => {
+  if (data.workMode) {
+    workMode = data.workMode;
+  }
 });
 
-// Managed the proxy
+browser.storage.onChanged.addListener(changeData => {
+  proxyHosts = changeData.proxyHosts.newValue;
+});
 
-// Listen for a request to open a webpage
+
 browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
 
-// On the request to open a webpage
+
+
 function handleProxyRequest(requestInfo) {
-// Read the web address of the page to be visited 
+
   const url = new URL(requestInfo.url);
-// Determine whether the domain in the web address is on the blocked hosts list
-  if (blockedHosts.indexOf(url.hostname) != -1) {
-// Write details of the proxied host to the console and return the proxy address
+
+  if (((proxyHosts.indexOf(url.hostname) != -1) && (workMode != -1)) || (workMode == 1)) {
+
     console.log(`Proxying: ${url.hostname}`);
-    return {type: "socks", host: "127.0.0.1", port: 1084}; // proxy.ProxyInfo
+    return {type: pServer.type, host: pServer.host, port: pServer.port}; // proxy.ProxyInfo
   }
-// Return instructions to open the requested webpage
+
   return {type: "direct"};
 }
 
-// Log any errors from the proxy script
 browser.proxy.onError.addListener(error => {
   console.error(`Proxy error: ${error.message}`);
 });
+
+function handleMessage(request) {
+  // console.log(`A content script sent a message: ${request.workMode}`);
+  workMode = request.workMode;
+}
+
+browser.runtime.onMessage.addListener(handleMessage);
 
 
 
