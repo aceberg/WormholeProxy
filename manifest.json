@@ -1,0 +1,33 @@
+{
+
+  "manifest_version": 2,
+  "name": "Wormhole-Proxy",
+  "description": "Wormhole Proxy description",
+  "version": "1.0",
+
+  "icons": {
+    "48": "icons/wormhole.png",
+    "96": "icons/wormhole.png"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "56.0a1"
+    }
+  },
+
+  "background": {
+    "scripts": [
+      "background/proxy-handler.js"
+    ]
+  },
+
+  "browser_action": {
+    "default_icon": "icons/wormhole.png",
+    "default_title": "Wormhole-Proxy",
+    "default_popup": "popup/proxy_config.html"
+  },
+
+  "permissions": ["proxy", "storage", "<all_urls>"]
+
+}
