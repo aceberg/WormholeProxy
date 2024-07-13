@@ -1,25 +1,53 @@
-const proxyHostsTextArea = document.querySelector("#proxy-hosts");
+let proxyHosts = ["example.com", "example.org", "2ip.ru"];
+// let proxyHosts = [];
 
-// Store the currently selected settings using browser.storage.local.
-function storeSettings() {
-  let proxyHosts = proxyHostsTextArea.value.split("\n");
+browser.storage.local.get(data => {
+  if (data.proxyHosts) {
+    proxyHosts = data.proxyHosts;
+  }
+
+  displayProxyHosts(proxyHosts);
+});
+
+const form = document.getElementById("newHost");
+form.addEventListener("submit", async (event) => {
+  const formData = new FormData(form);
+  let host = formData.get('host');
+
+  proxyHosts.push(host);
+
+  // console.log("HOST:", proxyHosts);
+
   browser.storage.local.set({
-    proxyHosts
+    proxyHosts: proxyHosts
   });
-}
+});
 
-// Update the options UI with the settings values retrieved from storage,
-// or the default settings if the stored settings are empty.
-function updateUI(restoredSettings) {
-  proxyHostsTextArea.value = restoredSettings.proxyHosts.join("\n");
-}
+function createHTML(host, i) {
+    
+  let html = `
+    <tr>
+      <td style="opacity: 45%;">${i}.</td>
+      <td>${host}</td>
+      <td>
+      <div class="del-btn">
+        <img value="${host}" class="icon-button" src="../icons/x-square.svg"></img>
+      </div>
+      </td>
+    </tr>`;
+  
+  return html;
+};
 
-function onError(e) {
-  console.error(e);
-}
+function displayProxyHosts(proxyHosts) {
+  document.getElementById('proxyList').innerHTML = "";
 
-// On opening the options page, fetch stored settings and update the UI with them.
-browser.storage.local.get().then(updateUI, onError);
+  console.log("PH:", proxyHosts);
 
-// Whenever the contents of the textarea changes, save the new values
-proxyHostsTextArea.addEventListener("change", storeSettings);
+  let i = 0;
+  for (let host of proxyHosts){
+      i = i + 1;
+      html = createHTML(host, i);
+      document.getElementById('proxyList').insertAdjacentHTML('beforeend', html);
+  }
+};

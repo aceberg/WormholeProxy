@@ -7,18 +7,30 @@
   </head>
 
   <body>
-    <table>
-      <thead>
-        <th>Hosts to proxy</th>
-        <th>Proxy config</th>
-      </thead>
-      <tr>
-        <td>
-          <textarea id="proxy-hosts" rows="50" cols="50"></textarea>
-        </td>
-        <td style="width: 50em;"></td>
-      </tr>
-    </table>
+    <div class="row">
+      <div class="column">
+        <h3>Hosts to proxy</h3>
+        <form id="newHost">
+          <input name="host" placeholder="New host"></input><button type="submit">Add</button>
+        </form>
+        <br>
+        <br>
+        <table>
+          <thead>
+            <th></th>
+            <th style="width: 80%;">Host <img class="icon-button" src="../icons/sort-down-alt.svg"></img>
+            </th>
+            <th style="width: 10%;">Del</th>
+          </thead>
+          <tbody id="proxyList"></tbody>
+        </table>
+      </div>
+      <div class="column">
+        <h3>Proxy config</h3>
+        <p>Some test text</p>
+      </div>
+    </div> 
+        
     <script src="options.js"></script>
   </body>
 

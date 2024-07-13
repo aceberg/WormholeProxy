@@ -3,30 +3,22 @@ let proxyHosts = ["example.com", "example.org", "2ip.ru"];
 let pServer = {id: 1, type:"socks", host: "127.0.0.1", port: 1084};
 let workMode = 0;
 
-
-browser.runtime.onInstalled.addListener(details => {
-  browser.storage.local.set({
-    proxyHosts: proxyHosts
-  });
-});
-
-
 browser.storage.local.get(data => {
   if (data.proxyHosts) {
     proxyHosts = data.proxyHosts;
-  }
-});
-
-browser.storage.local.get(data => {
+  } else {
+    browser.storage.local.set({
+      proxyHosts: proxyHosts
+    });
+  };
   if (data.workMode) {
     workMode = data.workMode;
-  }
+  } else {
+    browser.storage.local.set({
+      workMode: workMode
+    });
+  };
 });
-
-browser.storage.onChanged.addListener(changeData => {
-  proxyHosts = changeData.proxyHosts.newValue;
-});
-
 
 browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
 
