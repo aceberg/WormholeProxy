@@ -5,6 +5,7 @@ html, body {
 
 button {
   border: none;
+  border-left: 1rem solid;
   width: 100%;
   margin: 3% auto;
   padding: 4px;

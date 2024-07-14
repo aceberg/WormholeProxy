@@ -1,14 +1,39 @@
-let proxyHosts = ["example.com", "example.org", "2ip.ru"];
-// let proxyHosts = [];
+// let proxyHosts = ["example.com", "example.org", "2ip.ru"];
+let proxyHosts = [];
 
+
+// Get local proxyHosts
 browser.storage.local.get(data => {
   if (data.proxyHosts) {
     proxyHosts = data.proxyHosts;
   }
 
+  // Show on options page
   displayProxyHosts(proxyHosts);
+
+  // Listen to click on delete button
+  const buttons = document.querySelectorAll(".del-btn");
+  for (let b of buttons) {
+    b.addEventListener("click", async (event) => {
+      const i = b.getAttribute("name");
+      
+      // Remove item
+      proxyHosts.splice(i-1, 1);
+      saveProxyHosts(proxyHosts);
+    });
+  }
 });
 
+// Listen to click on sort button
+const sortBtn = document.getElementById("sortBtn");
+sortBtn.addEventListener("click", async (event) => {
+  
+  proxyHosts.sort();
+
+  saveProxyHosts(proxyHosts);
+});
+
+// Add host to proxyHosts
 const form = document.getElementById("newHost");
 form.addEventListener("submit", async (event) => {
   const formData = new FormData(form);
@@ -16,38 +41,31 @@ form.addEventListener("submit", async (event) => {
 
   proxyHosts.push(host);
 
-  // console.log("HOST:", proxyHosts);
+  saveProxyHosts(proxyHosts);
+});
 
+function saveProxyHosts(proxyHosts) {
   browser.storage.local.set({
     proxyHosts: proxyHosts
   });
-});
 
-function createHTML(host, i) {
-    
-  let html = `
-    <tr>
-      <td style="opacity: 45%;">${i}.</td>
-      <td>${host}</td>
-      <td>
-      <div class="del-btn">
-        <img value="${host}" class="icon-button" src="../icons/x-square.svg"></img>
-      </div>
-      </td>
-    </tr>`;
-  
-  return html;
+  // Update page
+  location.reload();
 };
 
 function displayProxyHosts(proxyHosts) {
-  document.getElementById('proxyList').innerHTML = "";
+  const pList = document.getElementById('proxyList');
+  const html = pList.innerHTML;
+  let finalOutput = '';
 
-  console.log("PH:", proxyHosts);
+  // console.log("PH:", proxyHosts);
 
   let i = 0;
   for (let host of proxyHosts){
       i = i + 1;
-      html = createHTML(host, i);
-      document.getElementById('proxyList').insertAdjacentHTML('beforeend', html);
+      
+      finalOutput = finalOutput + html.replaceAll('hostTemplate', host).replaceAll('iTemplate', i);
   }
+
+  pList.innerHTML = finalOutput;
 };

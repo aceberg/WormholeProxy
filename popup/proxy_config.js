@@ -1,7 +1,7 @@
 
 var reply_click = function()
 {
-    console.log("Button clicked, id "+this.id+", text"+this.innerHTML);
+    // console.log("Button clicked, id "+this.id+", text"+this.innerHTML);
 
     switch (this.id) {
       case "Default":
@@ -16,6 +16,10 @@ var reply_click = function()
         console.log("Disable mode");
         disableProxy();
         break;
+      case "Add":
+        console.log("Add mode");
+        addThisPage();
+        break;
       case "Options":
         console.log("Options page");
         openOptionsPage();
@@ -25,6 +29,7 @@ var reply_click = function()
 document.getElementById('Default').onclick = reply_click;
 document.getElementById('All').onclick = reply_click;
 document.getElementById('Disable').onclick = reply_click;
+document.getElementById('Add').onclick = reply_click;
 document.getElementById('Options').onclick = reply_click;
 
 function openOptionsPage() {
@@ -68,4 +73,25 @@ function allProxy() {
   browser.runtime.sendMessage({
     workMode: 1,
   });
+};
+
+function addThisPage() {
+  browser.tabs.query({active:true,currentWindow:true}).then(function(tabs){
+    const currentTabUrl = new URL(tabs[0].url);
+    const host = currentTabUrl.hostname;
+    let proxyHosts = [];
+    console.log("Current URL", host);
+
+    browser.storage.local.get(data => {
+      if (data.proxyHosts) {
+        proxyHosts = data.proxyHosts;
+      }
+
+      proxyHosts.push(host);
+
+      browser.storage.local.set({
+        proxyHosts: proxyHosts
+      });
+    });
+});
 }

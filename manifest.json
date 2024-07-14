@@ -29,6 +29,6 @@
     "default_popup": "popup/proxy_config.html"
   },
 
-  "permissions": ["proxy", "storage", "<all_urls>"]
+  "permissions": ["proxy", "storage", "tabs", "<all_urls>"]
 
 }

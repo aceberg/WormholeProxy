@@ -3,34 +3,48 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <!-- ocean theme -->
+    <link href="bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="options.css"/>
   </head>
 
   <body>
-    <div class="row">
-      <div class="column">
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md">
         <h3>Hosts to proxy</h3>
-        <form id="newHost">
-          <input name="host" placeholder="New host"></input><button type="submit">Add</button>
+        <form id="newHost" class="input-group">
+          <input name="host" placeholder="New host" class="form-control"></input>
+          <button type="submit" class="btn btn-primary">Add</button>
         </form>
-        <br>
-        <br>
-        <table>
+        <table class="table table-borderless mt-4">
           <thead>
             <th></th>
-            <th style="width: 80%;">Host <img class="icon-button" src="../icons/sort-down-alt.svg"></img>
+            <th style="width: 80%;">Host <img id="sortBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
             </th>
             <th style="width: 10%;">Del</th>
           </thead>
-          <tbody id="proxyList"></tbody>
+          <tbody id="proxyList">
+            <tr>
+              <td style="opacity: 45%;">iTemplate.</td>
+              <td>
+                <a href="http://hostTemplate" target="_blank">hostTemplate</a>
+              </td>
+              <td>
+                <button name="iTemplate" class="del-btn">
+                  <img class="icon-button" src="../icons/x-square.svg">
+                </button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
-      <div class="column">
+      <div class="col-md">
         <h3>Proxy config</h3>
         <p>Some test text</p>
       </div>
     </div> 
-        
+  </div>
     <script src="options.js"></script>
   </body>
 
