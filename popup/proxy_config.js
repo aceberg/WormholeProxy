@@ -54,7 +54,7 @@ function disableProxy() {
 function enableProxy() {
   browser.browserAction.setIcon({
     path: {
-      32: "../icons/wormhole.png",
+      32: "../icons/wormhole0.png",
     },
   });
 
@@ -80,7 +80,7 @@ function addThisPage() {
     const currentTabUrl = new URL(tabs[0].url);
     const host = currentTabUrl.hostname;
     let proxyHosts = [];
-    console.log("Current URL", host);
+    console.log("Adding current URL", host);
 
     browser.storage.local.get(data => {
       if (data.proxyHosts) {

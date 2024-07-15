@@ -3,6 +3,11 @@
   background: none;
 }
 
+.edit-btn {
+  border: none;
+  background: none;
+}
+
 .icon-button {
   height: 100%;
   text-align: center;
