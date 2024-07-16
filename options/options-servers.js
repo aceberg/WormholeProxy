@@ -1,4 +1,3 @@
-let mainServer = {};
 let proxyServers = [];
 
 // Get local proxyServers
@@ -15,9 +14,37 @@ browser.storage.local.get(data => {
     b.addEventListener("click", async (event) => {
       const i = b.getAttribute("name");
       
-      // console.log("EDIT", proxyServers[i-1]);
-      fillForm(i-1);
+      // console.log("EDIT", proxyServers[i]);
+      fillForm(i);
     });
+  }
+
+  // Listen to click on check
+  const checks = document.querySelectorAll(".main-check");
+  for (let c of checks) {
+    c.addEventListener("click",  () => {
+      const index = c.getAttribute("name");
+      console.log("CHECKED", index);
+
+      for (let i=0; i<proxyServers.length; i++){
+        if (i == index) {
+          proxyServers[i].checked = "checked";
+          saveMainServer(proxyServers[i]);
+        } else {
+          proxyServers[i].checked = "";
+        }
+      }
+      console.log("PS-CHECK", proxyServers);
+      saveProxyServers(proxyServers);
+      // displayProxyServers(proxyServers);
+    });
+  }
+});
+
+// Listen for changes in local storage
+browser.storage.onChanged.addListener(changeData => {
+  if (changeData.proxyServers) {
+    proxyServers = changeData.proxyServers.newValue;
   }
 });
 
@@ -69,7 +96,13 @@ function fillForm(index) {
   document.getElementById("delForm").hidden = false;
 };
 
-function saveProxyServers(proxyServers) {
+function saveMainServer(mainServer) {
+  browser.storage.local.set({
+    mainServer: mainServer
+  });
+};
+
+async function saveProxyServers(proxyServers) {
   browser.storage.local.set({
     proxyServers: proxyServers
   });
@@ -84,9 +117,11 @@ function displayProxyServers(proxyServers) {
   let finalOutput = '';
   let i = 0;
   for (let serv of proxyServers){
+      finalOutput = finalOutput + html.replaceAll('colorTemplate', serv.color).replaceAll('nameTemplate', serv.name).replaceAll('typeTemplate', serv.type).replaceAll('hostTemplate', serv.host).replaceAll('portTemplate', serv.port).replaceAll('iTemplate', i).replaceAll('checkedtemplate', serv.checked);
       i = i + 1;
-      finalOutput = finalOutput + html.replaceAll('colorTemplate', serv.color).replaceAll('nameTemplate', serv.name).replaceAll('typeTemplate', serv.type).replaceAll('hostTemplate', serv.host).replaceAll('portTemplate', serv.port).replaceAll('iTemplate', i);
   }
+
+  console.log("PS-DISPLAY", proxyServers);
 
   sList.innerHTML = finalOutput;
 };

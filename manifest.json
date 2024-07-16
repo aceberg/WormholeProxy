@@ -1,19 +1,17 @@
 {
-
   "manifest_version": 2,
   "name": "Wormhole-Proxy",
-  "description": "Wormhole Proxy description",
+  "description": "Wormhole-Proxy - easy to use proxy manager",
   "homepage_url": "https://github.com/aceberg/WormholeProxy",
   "version": "0.1.0",
 
   "icons": {
-    "48": "icons/wormhole.png",
-    "96": "icons/wormhole.png"
+    "512": "icons/wormhole0.png"
   },
 
   "browser_specific_settings": {
     "gecko": {
-      "strict_min_version": "56.0a1"
+      "strict_min_version": "91.1.0"
     }
   },
 
@@ -24,7 +22,7 @@
   },
 
   "browser_action": {
-    "default_icon": "icons/wormhole.png",
+    "default_icon": "icons/wormhole0.png",
     "default_title": "Wormhole-Proxy",
     "default_popup": "popup/proxy_config.html"
   },

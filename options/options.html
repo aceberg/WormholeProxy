@@ -13,8 +13,14 @@
     <div class="row mt-4">
       <div class="col-md">
         <div class="card border-primary">
-          <div class="card-header"><h4>Hosts to proxy</h4></div>
+          <div class="card-header">
+            <h4>Hosts to proxy</h4>
+          </div>
           <div class="card-body table-responsive">
+            <div class="input-group mb-4">
+              <button class="btn btn-outline-primary"><a id="hosts-export">Export</a></button>
+              <button class="btn btn-outline-primary"><a id="hosts-import">Import</a></button>
+            </div>
             <form id="newHost" class="input-group">
               <input name="host" placeholder="New host" class="form-control"></input>
               <button type="submit" class="btn btn-primary">Add</button>
@@ -22,10 +28,10 @@
             <table class="table table-borderless mt-4">
               <thead>
                 <th></th>
-                <th style="width: 50%;">Host <img id="sortBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
+                <th style="width: 80%;">Host <img id="sortBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
                 </th>
-                <th style="width: 30%;">Added <img id="sortBtnA" class="icon-button" src="../icons/sort-down-alt.svg"></img>
-                </th>
+                <!-- <th style="width: 30%;">Added <img id="sortBtnA" class="icon-button" src="../icons/sort-down-alt.svg"></img>
+                </th> -->
                 <th style="width: 10%;">Del</th>
               </thead>
               <tbody id="proxyList">
@@ -34,7 +40,7 @@
                   <td>
                     <a href="http://hostTemplate" target="_blank">hostTemplate</a>
                   </td>
-                  <td>dateTemplate</td>
+                  <!-- <td>dateTemplate</td> -->
                   <td>
                     <button name="iTemplate" class="del-btn">
                       <img class="icon-button" src="../icons/x-square.svg">
@@ -50,6 +56,10 @@
         <div class="card border-primary">
           <div class="card-header"><h4>Servers</h4></div>
           <div class="card-body table-responsive">
+            <div class="input-group mb-4">
+              <button class="btn btn-outline-primary"><a id="servers-export">Export</a></button>
+              <button class="btn btn-outline-primary"><a id="servers-import">Import</a></button>
+            </div>
             <table class="table table-borderless">
               <thead>
                 <th></th>
@@ -62,7 +72,7 @@
               <tbody id="serverList">
                 <tr>
                   <td>
-                    <input type="radio" notchecked>
+                    <input type="radio" name="iTemplate" class="main-check" checkedtemplate>
                   </td>
                   <td style="background-color: colorTemplate;">nameTemplate</td>
                   <td>typeTemplate</td>
@@ -128,6 +138,7 @@
   </div>
     <script src="options-hosts.js"></script>
     <script src="options-servers.js"></script>
+    <script src="options-file.js"></script>
   </body>
 
 </html>

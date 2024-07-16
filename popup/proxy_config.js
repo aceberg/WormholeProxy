@@ -46,8 +46,8 @@ function disableProxy() {
     },
   });
   
-  browser.runtime.sendMessage({
-    workMode: -1,
+  browser.storage.local.set({
+    workMode: -1
   });
 }
 
@@ -58,7 +58,7 @@ function enableProxy() {
     },
   });
 
-  browser.runtime.sendMessage({
+  browser.storage.local.set({
     workMode: 0,
   });
 }
@@ -70,12 +70,15 @@ function allProxy() {
     },
   });
 
-  browser.runtime.sendMessage({
+  browser.storage.local.set({
     workMode: 1,
   });
 };
 
 function addThisPage() {
+  browser.browserAction.setBadgeBackgroundColor({ color: "#ffba60" });
+  browser.browserAction.setBadgeText({text: "+"});
+
   browser.tabs.query({active:true,currentWindow:true}).then(function(tabs){
     const currentTabUrl = new URL(tabs[0].url);
     const host = currentTabUrl.hostname;
@@ -93,5 +96,5 @@ function addThisPage() {
         proxyHosts: proxyHosts
       });
     });
-});
+  });
 }
