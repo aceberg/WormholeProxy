@@ -14,8 +14,8 @@ browser.storage.local.get(data => {
     b.addEventListener("click", async (event) => {
       const i = b.getAttribute("name");
       
-      // console.log("EDIT", proxyServers[i]);
       fillForm(i);
+      document.getElementById('addID').classList.add("show");
     });
   }
 
@@ -36,7 +36,7 @@ browser.storage.local.get(data => {
       }
       console.log("PS-CHECK", proxyServers);
       saveProxyServers(proxyServers);
-      // displayProxyServers(proxyServers);
+      displayProxyServers(proxyServers);
     });
   }
 });
@@ -71,6 +71,7 @@ form1.addEventListener("submit", async (event) => {
   oneServer.type = formData1.get('type');
   oneServer.host = formData1.get('host');
   oneServer.port = formData1.get('port');
+  oneServer.checked = formData1.get('checked');
 
   if (i > -1) {
     proxyServers.splice(i, 1);
@@ -87,6 +88,7 @@ function fillForm(index) {
   // console.log("PR", pr);
   const form2 = document.getElementById("addForm");
   form2.elements['index'].value = index;
+  form2.elements['checked'].value = pr.checked;
   form2.elements['name'].value = pr.name;
   form2.elements['color'].value = pr.color;
   form2.elements['type'].value = pr.type;
@@ -112,12 +114,13 @@ async function saveProxyServers(proxyServers) {
 };
 
 function displayProxyServers(proxyServers) {
+
   const sList = document.getElementById('serverList');
   const html = sList.innerHTML;
   let finalOutput = '';
   let i = 0;
   for (let serv of proxyServers){
-      finalOutput = finalOutput + html.replaceAll('colorTemplate', serv.color).replaceAll('nameTemplate', serv.name).replaceAll('typeTemplate', serv.type).replaceAll('hostTemplate', serv.host).replaceAll('portTemplate', serv.port).replaceAll('iTemplate', i).replaceAll('checkedtemplate', serv.checked);
+      finalOutput = finalOutput + html.replaceAll('checkedtemplate', serv.checked).replaceAll('colorTemplate', serv.color).replaceAll('nameTemplate', serv.name).replaceAll('typeTemplate', serv.type).replaceAll('hostTemplate', serv.host).replaceAll('portTemplate', serv.port).replaceAll('iTemplate', i);
       i = i + 1;
   }
 
