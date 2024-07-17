@@ -54,18 +54,25 @@ function saveProxyHosts(proxyHosts) {
 };
 
 function displayProxyHosts(proxyHosts) {
-  const pList = document.getElementById('proxyList');
-  const html = pList.innerHTML;
-  let finalOutput = '';
-
-  // console.log("PH:", proxyHosts);
+  const tbody = document.getElementById('proxyList');
+  const template = document.querySelector("#hostTemplate");
+  
+  let clone, td, a, b;
 
   let i = 0;
   for (let host of proxyHosts){
       i = i + 1;
-      
-      finalOutput = finalOutput + html.replaceAll('hostTemplate', host).replaceAll('iTemplate', i);
-  }
+  
+      clone = template.content.cloneNode(true);
+      td = clone.querySelectorAll("td");
 
-  pList.innerHTML = finalOutput;
+      td[0].textContent = i+'.';
+      a = td[1].querySelectorAll("a")[0];
+      a.href = `http://${host}`;
+      a.textContent = host;
+      b = td[2].querySelectorAll("button")[0];
+      b.name = i;
+
+      tbody.appendChild(clone);
+  }
 };

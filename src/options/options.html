@@ -29,11 +29,17 @@
                   <input class="form-control" type="file" id="hosts-file" accept=".json"/>
                   <button class="btn btn-outline-primary" id="hosts-import">Import</button>
                 </div>
-                <div class="input-group">
+                <div class="input-group mb-4">
                   <button class="btn btn-primary" disabled>Servers</button>
                   <button class="btn btn-outline-primary"><a id="servers-export">Export</a></button>
                   <input class="form-control" type="file" id="servers-file" accept=".json"/>
                   <button class="btn btn-outline-primary" id="servers-import">Import</button>
+                </div>
+                <div class="input-group">
+                  <button class="btn btn-primary" disabled>Ignore</button>
+                  <button class="btn btn-outline-primary"><a id="ignore-export">Export</a></button>
+                  <input class="form-control" type="file" id="ignore-file" accept=".json"/>
+                  <button class="btn btn-outline-primary" id="ignore-import">Import</button>
                 </div>
               </div>
             </div>
@@ -58,17 +64,19 @@
                     <th style="width: 10%;">Del</th>
                   </thead>
                   <tbody id="proxyList">
-                    <tr>
-                      <td style="opacity: 45%;">iTemplate.</td>
-                      <td>
-                        <a href="http://hostTemplate" target="_blank">hostTemplate</a>
-                      </td>
-                      <td>
-                        <button name="iTemplate" class="del-btn">
-                          <img class="icon-button" src="../icons/x-square.svg">
-                        </button>
-                      </td>
-                    </tr>
+                    <template id="hostTemplate">
+                      <tr>
+                        <td style="opacity: 45%;"></td>
+                        <td>
+                          <a target="_blank"></a>
+                        </td>
+                        <td>
+                          <button class="del-btn icon-button">
+                            <img class="icon-button" src="../icons/x-square.svg">
+                          </button>
+                        </td>
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>
@@ -89,22 +97,24 @@
                 <table class="table table-borderless mt-4">
                   <thead>
                     <th></th>
-                    <th style="width: 80%;">Host <img id="sortBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
+                    <th style="width: 80%;">Host <img id="sortIgnBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
                     </th>
                     <th style="width: 10%;">Del</th>
                   </thead>
                   <tbody id="ignoreList">
-                    <tr>
-                      <td style="opacity: 45%;">iTemplate.</td>
-                      <td>
-                        <a href="http://hostTemplate" target="_blank">hostTemplate</a>
-                      </td>
-                      <td>
-                        <button name="iTemplate" class="ign-del-btn">
-                          <img class="icon-button" src="../icons/x-square.svg">
-                        </button>
-                      </td>
-                    </tr>
+                    <template id="ignoreTemplate">
+                      <tr>
+                        <td style="opacity: 45%;"></td>
+                        <td>
+                          <a target="_blank"></a>
+                        </td>
+                        <td>
+                          <button class="ign-del-btn icon-button">
+                            <img class="icon-button" src="../icons/x-square.svg">
+                          </button>
+                        </td>
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>
@@ -131,22 +141,23 @@
                     <th>Port</th>
                     <th>Edit</th>
                   </thead>
-                  <tbody id="serverList">
+                  <tbody id="serverList"></tbody>
+                  <template id="serverTemplate">
                     <tr>
                       <td>
-                        <input type="radio" name="iTemplate" class="main-check" checkedtemplate>
+                        <input type="radio" class="main-check">
                       </td>
-                      <td style="background-color: colorTemplate;">nameTemplate</td>
-                      <td>typeTemplate</td>
-                      <td>hostTemplate</td>
-                      <td>portTemplate</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                       <td>
-                        <button name="iTemplate" class="edit-btn">
+                        <button class="edit-btn icon-button">
                           <img class="icon-button" src="../icons/arrow-down-square.svg">
                         </button>
                       </td>
                     </tr>
-                  </tbody>
+                  </template>
                 </table>
               </div>
             </div>
@@ -208,6 +219,7 @@
     </div> 
   </div>
     <script src="options-hosts.js"></script>
+    <script src="options-ignore.js"></script>
     <script src="options-servers.js"></script>
     <script src="options-file.js"></script>
   </body>

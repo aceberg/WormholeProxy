@@ -1,17 +1,18 @@
 let proxyServers = [];
 
+
 // Get local proxyServers
 browser.storage.local.get(data => {
   if (data.proxyServers) {
     proxyServers = data.proxyServers;
   }
 
-  displayProxyServers(proxyServers);
+  displayProxyServers();
 
   // Listen to click on edit button
   const buttons = document.querySelectorAll(".edit-btn");
   for (let b of buttons) {
-    b.addEventListener("click", async (event) => {
+    b.addEventListener("click", () => {
       const i = b.getAttribute("name");
       
       fillForm(i);
@@ -28,15 +29,17 @@ browser.storage.local.get(data => {
 
       for (let i=0; i<proxyServers.length; i++){
         if (i == index) {
-          proxyServers[i].checked = "checked";
+          proxyServers[i].checked = true;
           saveMainServer(proxyServers[i]);
+          console.log('NAME', proxyServers[i].name, 'CH', proxyServers[i].checked);
         } else {
-          proxyServers[i].checked = "";
+          proxyServers[i].checked = false;
+          console.log('NAME', proxyServers[i].name, 'CH', proxyServers[i].checked);
         }
       }
-      console.log("PS-CHECK", proxyServers);
+      
       saveProxyServers(proxyServers);
-      displayProxyServers(proxyServers);
+      displayProxyServers();
     });
   }
 });
@@ -50,7 +53,7 @@ browser.storage.onChanged.addListener(changeData => {
 
 // Listen to Delete button click
 const delBtn = document.getElementById("delForm");
-delBtn.addEventListener("click", async (event) => {
+delBtn.addEventListener("click", (event) => {
   const index = document.getElementById('formID').value;
   // console.log('DEL', index);
   proxyServers.splice(index, 1);
@@ -62,7 +65,7 @@ delBtn.addEventListener("click", async (event) => {
 
 // Add or edit server
 const form1 = document.getElementById("addForm");
-form1.addEventListener("submit", async (event) => {
+form1.addEventListener("submit", (event) => {
   const formData1 = new FormData(form1);
   const i = formData1.get('index');
   let oneServer = {};
@@ -104,7 +107,7 @@ function saveMainServer(mainServer) {
   });
 };
 
-async function saveProxyServers(proxyServers) {
+function saveProxyServers(proxyServers) {
   browser.storage.local.set({
     proxyServers: proxyServers
   });
@@ -113,18 +116,42 @@ async function saveProxyServers(proxyServers) {
   location.reload();
 };
 
-function displayProxyServers(proxyServers) {
+function displayProxyServers() {
+  const tbody = document.getElementById('serverList');
+  const template = document.querySelector("#serverTemplate");
 
-  const sList = document.getElementById('serverList');
-  const html = sList.innerHTML;
-  let finalOutput = '';
+  let clone, td, input, b;
   let i = 0;
+
+  browser.storage.local.get(data => {
+    if (data.proxyServers) {
+      proxyServers = data.proxyServers;
+    }
+  });
+
+  tbody.textContent = '';
+  
   for (let serv of proxyServers){
-      finalOutput = finalOutput + html.replaceAll('checkedtemplate', serv.checked).replaceAll('colorTemplate', serv.color).replaceAll('nameTemplate', serv.name).replaceAll('typeTemplate', serv.type).replaceAll('hostTemplate', serv.host).replaceAll('portTemplate', serv.port).replaceAll('iTemplate', i);
-      i = i + 1;
+      
+    console.log('DISPLAY: NAME', serv.name, 'CH', serv.checked);
+      
+    clone = template.content.cloneNode(true);
+    td = clone.querySelectorAll("td");
+    
+    input = td[0].querySelectorAll("input")[0];
+    input.name = i;
+    input.checked = serv.checked;
+    
+    td[1].textContent = serv.name;
+    td[1].style = `background-color: ${serv.color}`;
+    td[2].textContent = serv.type;
+    td[3].textContent = serv.host;
+    td[4].textContent = serv.port;
+    b = td[5].querySelectorAll("button")[0];
+    b.name = i;
+
+    tbody.appendChild(clone);
+
+    i = i + 1;
   }
-
-  console.log("PS-DISPLAY", proxyServers);
-
-  sList.innerHTML = finalOutput;
 };

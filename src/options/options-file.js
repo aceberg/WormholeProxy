@@ -10,16 +10,22 @@ browser.storage.local.get(data => {
   const today = new Date().toLocaleDateString('en-CA');
 
   // Export Hosts
-  let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(proxyHosts));
-  let hExport = document.getElementById('hosts-export');
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(proxyHosts));
+  const hExport = document.getElementById('hosts-export');
   hExport.setAttribute("href",     dataStr     );
   hExport.setAttribute("download", "WormholeProxy-hosts-"+today+".json");
 
   // Export Servers
-  let dataStr1 = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(proxyServers));
-  let hExport1 = document.getElementById('servers-export');
+  const dataStr1 = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(proxyServers));
+  const hExport1 = document.getElementById('servers-export');
   hExport1.setAttribute("href",     dataStr1    );
   hExport1.setAttribute("download", "WormholeProxy-servers-"+today+".json");
+
+  // Export Ignore
+  const dataStr2 = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ignoreHosts));
+  const hExport2 = document.getElementById('ignore-export');
+  hExport2.setAttribute("href",     dataStr2    );
+  hExport2.setAttribute("download", "WormholeProxy-ignore-"+today+".json");
 });
 
 // Import Hosts
@@ -50,6 +56,23 @@ document.getElementById('servers-import').addEventListener('click', () => {
       
         const proxyServers = JSON.parse(event.target.result);
         saveProxyServers(proxyServers);
+         
+    };
+    reader.readAsText(file);
+  }
+});
+
+// Import Ignore
+document.getElementById('ignore-import').addEventListener('click', () => {
+  const fileInput = document.getElementById('ignore-file');
+  const file = fileInput.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      
+        const ignoreHosts = JSON.parse(event.target.result);
+        saveIgnoreHosts(ignoreHosts);
          
     };
     reader.readAsText(file);

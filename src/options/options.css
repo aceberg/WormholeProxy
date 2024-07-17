@@ -1,18 +1,10 @@
-.del-btn {
-  border: none;
-  background: none;
-}
-
-.edit-btn {
-  border: none;
-  background: none;
-}
-
 .icon-button {
+  border: none;
+  background: none;
   height: 100%;
   text-align: center;
 }
 .icon-button:hover {
   padding: 2px;
-  background-color: #0000001a;
+  background-color: #0000000a;
 }
