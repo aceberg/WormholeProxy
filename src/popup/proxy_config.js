@@ -46,7 +46,7 @@ function disableProxy() {
     },
   });
   
-  browser.storage.local.set({
+  browser.storage.sync.set({
     workMode: -1
   });
 }
@@ -58,7 +58,7 @@ function enableProxy() {
     },
   });
 
-  browser.storage.local.set({
+  browser.storage.sync.set({
     workMode: 0,
   });
 }
@@ -70,7 +70,7 @@ function allProxy() {
     },
   });
 
-  browser.storage.local.set({
+  browser.storage.sync.set({
     workMode: 1,
   });
 };
@@ -85,7 +85,7 @@ function addThisPage() {
     let proxyHosts = [];
     console.log("Adding current URL", host);
 
-    browser.storage.local.get(data => {
+    browser.storage.sync.get(data => {
       if (data.proxyHosts) {
         proxyHosts = data.proxyHosts;
       }
@@ -93,7 +93,7 @@ function addThisPage() {
       if (host != '') {
         proxyHosts.push(host.replace('www.',''));
 
-        browser.storage.local.set({
+        browser.storage.sync.set({
           proxyHosts: proxyHosts
         });
       }

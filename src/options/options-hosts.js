@@ -3,7 +3,7 @@ let proxyHosts = [];
 
 
 // Get local proxyHosts
-browser.storage.local.get(data => {
+browser.storage.sync.get(data => {
   if (data.proxyHosts) {
     proxyHosts = data.proxyHosts;
   }
@@ -47,7 +47,7 @@ form.addEventListener("submit", async (event) => {
 });
 
 function saveProxyHosts(proxyHosts) {
-  browser.storage.local.set({
+  browser.storage.sync.set({
     proxyHosts: proxyHosts
   });
 

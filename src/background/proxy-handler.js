@@ -4,7 +4,7 @@ let ignoreHosts = [];
 let mainServer = {};
 let workMode = 0;
 
-browser.storage.local.get(data => {
+browser.storage.sync.get(data => {
   if (data.proxyHosts) {
     proxyHosts = data.proxyHosts;
   };
@@ -20,7 +20,7 @@ browser.storage.local.get(data => {
 });
 
 // Listen for changes in local storage
-browser.storage.onChanged.addListener(changeData => {
+browser.storage.sync.onChanged.addListener(changeData => {
   if (changeData.proxyHosts) {
     proxyHosts = changeData.proxyHosts.newValue;
   }

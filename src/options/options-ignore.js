@@ -2,7 +2,7 @@ let ignoreHosts = [];
 
 
 // Get local ignoreHosts
-browser.storage.local.get(data => {
+browser.storage.sync.get(data => {
   if (data.ignoreHosts) {
     ignoreHosts = data.ignoreHosts;
   }
@@ -44,7 +44,7 @@ formIgn.addEventListener("submit", async (event) => {
 });
 
 function saveIgnoreHosts(ignoreHosts) {
-  browser.storage.local.set({
+  browser.storage.sync.set({
     ignoreHosts: ignoreHosts
   });
 

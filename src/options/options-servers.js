@@ -2,7 +2,7 @@ let proxyServers = [];
 let mainServer = {};
 
 // Get local proxyServers
-browser.storage.local.get(data => {
+browser.storage.sync.get(data => {
   if (data.proxyServers) {
     proxyServers = data.proxyServers;
   }
@@ -26,7 +26,7 @@ browser.storage.local.get(data => {
 });
 
 // Listen for changes in local storage
-browser.storage.onChanged.addListener(changeData => {
+browser.storage.sync.onChanged.addListener(changeData => {
   if (changeData.proxyServers) {
     proxyServers = changeData.proxyServers.newValue;
   }
@@ -95,13 +95,13 @@ function fillForm(index) {
 
 function saveMainServer(mainServer) {
 
-  browser.storage.local.set({
+  browser.storage.sync.set({
     mainServer: mainServer
   });
 };
 
 function saveProxyServers(proxyServers) {
-  browser.storage.local.set({
+  browser.storage.sync.set({
     proxyServers: proxyServers
   });
 
@@ -142,12 +142,6 @@ function displayProxyServers() {
 
   let clone, td, input, b;
   let i = 0;
-
-  browser.storage.local.get(data => {
-    if (data.proxyServers) {
-      proxyServers = data.proxyServers;
-    }
-  });
 
   tbody.textContent = '';
   

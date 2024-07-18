@@ -1,5 +1,5 @@
 
-browser.storage.local.get(data => {
+browser.storage.sync.get(data => {
   if (data.proxyHosts) {
     proxyHosts = data.proxyHosts;
   };
