@@ -1,12 +1,16 @@
 let proxyServers = [];
-
+let mainServer = {};
 
 // Get local proxyServers
 browser.storage.local.get(data => {
   if (data.proxyServers) {
     proxyServers = data.proxyServers;
   }
+  if (data.mainServer) {
+    mainServer = data.mainServer;
+  }
 
+  displaySelect();
   displayProxyServers();
 
   // Listen to click on edit button
@@ -19,29 +23,6 @@ browser.storage.local.get(data => {
       document.getElementById('addID').classList.add("show");
     });
   }
-
-  // Listen to click on check
-  const checks = document.querySelectorAll(".main-check");
-  for (let c of checks) {
-    c.addEventListener("click",  () => {
-      const index = c.getAttribute("name");
-      console.log("CHECKED", index);
-
-      for (let i=0; i<proxyServers.length; i++){
-        if (i == index) {
-          proxyServers[i].checked = true;
-          saveMainServer(proxyServers[i]);
-          console.log('NAME', proxyServers[i].name, 'CH', proxyServers[i].checked);
-        } else {
-          proxyServers[i].checked = false;
-          console.log('NAME', proxyServers[i].name, 'CH', proxyServers[i].checked);
-        }
-      }
-      
-      saveProxyServers(proxyServers);
-      displayProxyServers();
-    });
-  }
 });
 
 // Listen for changes in local storage
@@ -49,6 +30,19 @@ browser.storage.onChanged.addListener(changeData => {
   if (changeData.proxyServers) {
     proxyServers = changeData.proxyServers.newValue;
   }
+});
+
+// Listen to Select
+const selectMain = document.getElementById("select-main");
+selectMain.addEventListener("change", () => {
+
+  const i = selectMain.value;
+
+  console.log("SELECT", selectMain.value);
+
+  mainServer = proxyServers[i];
+  saveMainServer(mainServer);
+  displaySelect();
 });
 
 // Listen to Delete button click
@@ -74,7 +68,6 @@ form1.addEventListener("submit", (event) => {
   oneServer.type = formData1.get('type');
   oneServer.host = formData1.get('host');
   oneServer.port = formData1.get('port');
-  oneServer.checked = formData1.get('checked');
 
   if (i > -1) {
     proxyServers.splice(i, 1);
@@ -91,7 +84,6 @@ function fillForm(index) {
   // console.log("PR", pr);
   const form2 = document.getElementById("addForm");
   form2.elements['index'].value = index;
-  form2.elements['checked'].value = pr.checked;
   form2.elements['name'].value = pr.name;
   form2.elements['color'].value = pr.color;
   form2.elements['type'].value = pr.type;
@@ -102,6 +94,7 @@ function fillForm(index) {
 };
 
 function saveMainServer(mainServer) {
+
   browser.storage.local.set({
     mainServer: mainServer
   });
@@ -114,6 +107,33 @@ function saveProxyServers(proxyServers) {
 
   // Update page
   location.reload();
+};
+
+function displaySelect() {
+  const select = document.getElementById('select-main');
+  
+  let opt;
+  let i = 0;
+
+  select.textContent = '';
+
+  if (mainServer) {
+    opt = document.createElement("option");
+    opt.textContent = `${mainServer.name}, ${mainServer.host}:${mainServer.port}`;
+    opt.selected = true;
+    opt.disabled = true;
+    select.appendChild(opt);
+  }
+
+  for (let serv of proxyServers){
+
+    opt = document.createElement("option");
+    opt.textContent = `${serv.name}, ${serv.host}:${serv.port}`;
+    opt.value = i;
+    select.appendChild(opt);
+
+    i = i + 1;
+  }
 };
 
 function displayProxyServers() {
@@ -133,21 +153,15 @@ function displayProxyServers() {
   
   for (let serv of proxyServers){
       
-    console.log('DISPLAY: NAME', serv.name, 'CH', serv.checked);
-      
     clone = template.content.cloneNode(true);
     td = clone.querySelectorAll("td");
-    
-    input = td[0].querySelectorAll("input")[0];
-    input.name = i;
-    input.checked = serv.checked;
-    
-    td[1].textContent = serv.name;
-    td[1].style = `background-color: ${serv.color}`;
-    td[2].textContent = serv.type;
-    td[3].textContent = serv.host;
-    td[4].textContent = serv.port;
-    b = td[5].querySelectorAll("button")[0];
+       
+    td[0].textContent = serv.name;
+    td[0].style = `background-color: ${serv.color}`;
+    td[1].textContent = serv.type;
+    td[2].textContent = serv.host;
+    td[3].textContent = serv.port;
+    b = td[4].querySelectorAll("button")[0];
     b.name = i;
 
     tbody.appendChild(clone);

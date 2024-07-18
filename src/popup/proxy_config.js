@@ -90,11 +90,13 @@ function addThisPage() {
         proxyHosts = data.proxyHosts;
       }
 
-      proxyHosts.push(host);
+      if (host != '') {
+        proxyHosts.push(host.replace('www.',''));
 
-      browser.storage.local.set({
-        proxyHosts: proxyHosts
-      });
+        browser.storage.local.set({
+          proxyHosts: proxyHosts
+        });
+      }
     });
   });
 }

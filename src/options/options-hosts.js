@@ -39,9 +39,11 @@ form.addEventListener("submit", async (event) => {
   const formData = new FormData(form);
   let host = formData.get('host');
 
-  proxyHosts.push(host);
-
-  saveProxyHosts(proxyHosts);
+  if (host != '') {
+    host = host.replace('www.','');
+    proxyHosts.push(host);
+    saveProxyHosts(proxyHosts);
+  }
 });
 
 function saveProxyHosts(proxyHosts) {

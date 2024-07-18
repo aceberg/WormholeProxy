@@ -132,9 +132,13 @@
             </h3>
             <div id="serversID" class="accordion-collapse collapse show">
               <div class="accordion-body">
+                <div class="input-group mb-4">
+                  <span class="input-group-text btn btn-outline-primary disabled">Select server</span>
+                  <select id="select-main" class="form-select">
+                  </select>
+                </div>
                 <table class="table table-borderless">
                   <thead>
-                    <th>Use</th>
                     <th>Name</th>
                     <th>Type</th>
                     <th>Host</th>
@@ -144,9 +148,6 @@
                   <tbody id="serverList"></tbody>
                   <template id="serverTemplate">
                     <tr>
-                      <td>
-                        <input type="radio" class="main-check">
-                      </td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -172,7 +173,6 @@
               <div class="accordion-body">
                 <form id="addForm">
                   <input name="index" type="hidden" id="formID" value="-1">
-                  <input name="checked" type="hidden">
                   <table class="table table-borderless">
                   <tr>
                     <td>Name</td>
