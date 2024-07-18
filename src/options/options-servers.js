@@ -6,11 +6,7 @@ browser.storage.sync.get(data => {
   if (data.proxyServers) {
     proxyServers = data.proxyServers;
   }
-  if (data.mainServer) {
-    mainServer = data.mainServer;
-  }
 
-  displaySelect();
   displayProxyServers();
 
   // Listen to click on edit button
@@ -23,6 +19,14 @@ browser.storage.sync.get(data => {
       document.getElementById('addID').classList.add("show");
     });
   }
+});
+
+browser.storage.local.get(data => {
+  if (data.mainServer) {
+    mainServer = data.mainServer;
+  }
+
+  displaySelect();
 });
 
 // Listen for changes in local storage
@@ -95,7 +99,7 @@ function fillForm(index) {
 
 function saveMainServer(mainServer) {
 
-  browser.storage.sync.set({
+  browser.storage.local.set({
     mainServer: mainServer
   });
 };
@@ -117,13 +121,18 @@ function displaySelect() {
 
   select.textContent = '';
 
-  if (mainServer) {
-    opt = document.createElement("option");
+  opt = document.createElement("option");
+  opt.selected = true;
+  opt.disabled = true;
+
+  if (mainServer.host != undefined) {
     opt.textContent = `${mainServer.name}, ${mainServer.host}:${mainServer.port}`;
-    opt.selected = true;
-    opt.disabled = true;
-    select.appendChild(opt);
+  } else {
+    opt.textContent = 'Please, select default server';
+    document.getElementById('select-btn').classList.remove('btn-outline-primary');
+    document.getElementById('select-btn').classList.add('btn-danger');
   }
+  select.appendChild(opt);
 
   for (let serv of proxyServers){
 

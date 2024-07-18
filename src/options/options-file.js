@@ -6,6 +6,9 @@ browser.storage.sync.get(data => {
   if (data.proxyServers) {
     proxyServers = data.proxyServers;
   };
+  if (data.ignoreHosts) {
+    ignoreHosts = data.ignoreHosts;
+  };
 
   const today = new Date().toLocaleDateString('en-CA');
 

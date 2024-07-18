@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Wormhole-Proxy",
-  "description": "Wormhole-Proxy - easy to use proxy manager",
+  "description": "Easy to use proxy manager",
   "homepage_url": "https://github.com/aceberg/WormholeProxy",
   "version": "0.2",
 

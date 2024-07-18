@@ -46,7 +46,7 @@ function disableProxy() {
     },
   });
   
-  browser.storage.sync.set({
+  browser.storage.local.set({
     workMode: -1
   });
 }
@@ -58,7 +58,7 @@ function enableProxy() {
     },
   });
 
-  browser.storage.sync.set({
+  browser.storage.local.set({
     workMode: 0,
   });
 }
@@ -70,7 +70,7 @@ function allProxy() {
     },
   });
 
-  browser.storage.sync.set({
+  browser.storage.local.set({
     workMode: 1,
   });
 };

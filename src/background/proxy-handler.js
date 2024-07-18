@@ -11,15 +11,18 @@ browser.storage.sync.get(data => {
   if (data.ignoreHosts) {
     ignoreHosts = data.ignoreHosts;
   };
-  if (data.mainServer) {
-    mainServer = data.mainServer;
-  };
+});
+
+browser.storage.local.get(data => {
   if (data.workMode) {
     workMode = data.workMode;
   };
+  if (data.mainServer) {
+    mainServer = data.mainServer;
+  };
 });
 
-// Listen for changes in local storage
+// Listen for changes in sync storage
 browser.storage.sync.onChanged.addListener(changeData => {
   if (changeData.proxyHosts) {
     proxyHosts = changeData.proxyHosts.newValue;
@@ -27,6 +30,10 @@ browser.storage.sync.onChanged.addListener(changeData => {
   if (changeData.ignoreHosts) {
     ignoreHosts = changeData.ignoreHosts.newValue;
   }
+});
+
+// Listen for changes in local storage
+browser.storage.local.onChanged.addListener(changeData => {
   if (changeData.mainServer) {
     mainServer = changeData.mainServer.newValue;
   }
@@ -40,19 +47,21 @@ browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
 
 function handleProxyRequest(requestInfo) {
 
-  const url = new URL(requestInfo.url);
-  const hostname = url.hostname;
+  if (mainServer.host != undefined) {
+    const url = new URL(requestInfo.url);
+    const hostname = url.hostname;
 
-  if ((inProxyList(hostname) && (workMode != -1)) || (workMode == 1 && !inIgnoreList(hostname))) {
+    if ((inProxyList(hostname) && (workMode != -1)) || (workMode == 1 && !inIgnoreList(hostname))) {
 
-    browser.browserAction.setBadgeBackgroundColor({ color: mainServer.color });
-    browser.browserAction.setBadgeText({text: mainServer.name});
+      browser.browserAction.setBadgeBackgroundColor({ color: mainServer.color });
+      browser.browserAction.setBadgeText({text: mainServer.name});
 
-    console.log(`Proxying: ${url.hostname} through ${mainServer.name}`);
-    return {type: mainServer.type, host: mainServer.host, port: mainServer.port}; // proxy.ProxyInfo
-  } else {
-    browser.browserAction.setBadgeText({text: ""});
-  }
+      console.log(`Proxying: ${url.hostname} through ${mainServer.name}`);
+      return {type: mainServer.type, host: mainServer.host, port: mainServer.port}; // proxy.ProxyInfo
+    } else {
+      browser.browserAction.setBadgeText({text: ""});
+    }
+  };
 
   return {type: "direct"};
 }
