@@ -16,7 +16,7 @@ browser.storage.sync.get(data => {
       const i = b.getAttribute("name");
       
       fillForm(i);
-      document.getElementById('addID').classList.add("show");
+      document.getElementById('edit-details').open = true;
     });
   }
 });

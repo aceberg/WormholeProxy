@@ -4,220 +4,170 @@
   <head>
     <meta charset="utf-8">
     <!-- ocean theme -->
-    <link href="bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="options.css"/>
-    <script src="bootstrap.bundle.min.js"></script>
-    
+    <link rel="stylesheet" href="options.css"/>    
   </head>
 
   <body>
-  <div class="container">
-    <div class="row mt-4 mb-4">
-      <div class="col-md">
-        <div class="accordion">
-          <div class="accordion-item border-primary">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#importID" aria-expanded="false" aria-controls="importID">
-                <h5>Import/Export</h5>
-              </button>
-            </h3>
-            <div id="importID" class="accordion-collapse collapse">
-              <div class="accordion-body">
-                <div class="input-group mb-4">
-                  <button class="btn btn-primary" disabled>Hosts</button>
-                  <button class="btn btn-outline-primary"><a id="hosts-export">Export</a></button>
-                  <input class="form-control" type="file" id="hosts-file" accept=".json"/>
-                  <button class="btn btn-outline-primary" id="hosts-import">Import</button>
-                </div>
-                <div class="input-group mb-4">
-                  <button class="btn btn-primary" disabled>Servers</button>
-                  <button class="btn btn-outline-primary"><a id="servers-export">Export</a></button>
-                  <input class="form-control" type="file" id="servers-file" accept=".json"/>
-                  <button class="btn btn-outline-primary" id="servers-import">Import</button>
-                </div>
-                <div class="input-group">
-                  <button class="btn btn-primary" disabled>Ignore</button>
-                  <button class="btn btn-outline-primary"><a id="ignore-export">Export</a></button>
-                  <input class="form-control" type="file" id="ignore-file" accept=".json"/>
-                  <button class="btn btn-outline-primary" id="ignore-import">Import</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item border-primary">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hostsID" aria-expanded="false" aria-controls="hostsID">
-                <h5>Hosts to proxy</h5>
-              </button>
-            </h3>
-            <div id="hostsID" class="accordion-collapse collapse show">
-              <div class="accordion-body">
-                <form id="newHost" class="input-group">
-                  <input name="host" placeholder="New host" class="form-control"></input>
-                  <button type="submit" class="btn btn-primary">Add</button>
-                </form>
-                <table class="table table-borderless mt-4">
-                  <thead>
-                    <th></th>
-                    <th style="width: 80%;">Host <img id="sortBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
-                    </th>
-                    <th style="width: 10%;">Del</th>
-                  </thead>
-                  <tbody id="proxyList">
-                    <template id="hostTemplate">
-                      <tr>
-                        <td style="opacity: 45%;"></td>
-                        <td>
-                          <a target="_blank"></a>
-                        </td>
-                        <td>
-                          <button class="del-btn icon-button">
-                            <img class="icon-button" src="../icons/x-square.svg">
-                          </button>
-                        </td>
-                      </tr>
-                    </template>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item border-primary">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ignoreID" aria-expanded="false" aria-controls="ignoreID">
-                <h5>Ignore in Proxy All mode</h5>
-              </button>
-            </h3>
-            <div id="ignoreID" class="accordion-collapse collapse">
-              <div class="accordion-body">
-                <form id="newHostIgnore" class="input-group">
-                  <input name="host" placeholder="New host" class="form-control"></input>
-                  <button type="submit" class="btn btn-primary">Add</button>
-                </form>
-                <table class="table table-borderless mt-4">
-                  <thead>
-                    <th></th>
-                    <th style="width: 80%;">Host <img id="sortIgnBtn" class="icon-button" src="../icons/sort-down-alt.svg"></img>
-                    </th>
-                    <th style="width: 10%;">Del</th>
-                  </thead>
-                  <tbody id="ignoreList">
-                    <template id="ignoreTemplate">
-                      <tr>
-                        <td style="opacity: 45%;"></td>
-                        <td>
-                          <a target="_blank"></a>
-                        </td>
-                        <td>
-                          <button class="ign-del-btn icon-button">
-                            <img class="icon-button" src="../icons/x-square.svg">
-                          </button>
-                        </td>
-                      </tr>
-                    </template>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+    <div class="col">
+      <details open>
+        <summary>Hosts to proxy</summary>
+        <form id="newHost" class="input-group">
+          <input name="host" placeholder="New host"></input>
+          <button type="submit" class="btn">Add</button>
+        </form>
+        <table>
+          <thead>
+            <th></th>
+            <th style="width: 80%;">Host <img id="sortBtn" class="btn-icon" src="../icons/sort-down-alt.svg"></img>
+            </th>
+            <th style="width: 10%;">Del</th>
+          </thead>
+          <tbody id="proxyList">
+            <template id="hostTemplate">
+              <tr>
+                <td style="opacity: 45%;"></td>
+                <td>
+                  <a target="_blank"></a>
+                </td>
+                <td>
+                  <button class="del-btn btn-icon">
+                    <img class="btn-icon" src="../icons/x-square.svg">
+                  </button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </details>
+      <details open>
+        <summary>Ignore in Proxy All mode</summary>
+        <form id="newHostIgnore" class="input-group">
+          <input name="host" placeholder="New host"></input>
+          <button type="submit" class="btn">Add</button>
+        </form>
+        <table>
+          <thead>
+            <th></th>
+            <th style="width: 80%;">Host <img id="sortIgnBtn" class="btn-icon" src="../icons/sort-down-alt.svg"></img>
+            </th>
+            <th style="width: 10%;">Del</th>
+          </thead>
+          <tbody id="ignoreList">
+            <template id="ignoreTemplate">
+              <tr>
+                <td style="opacity: 45%;"></td>
+                <td>
+                  <a target="_blank"></a>
+                </td>
+                <td>
+                  <button class="ign-del-btn btn-icon">
+                    <img class="btn-icon" src="../icons/x-square.svg">
+                  </button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </details>
+    </div>
+    <div class="col">
+      <details>
+        <summary>Import/Export</summary>
+        <div class="input-group">
+          <button class="btn" disabled>Hosts</button>
+          <button class="btn-outline"><a id="hosts-export">Export</a></button>
+          <input type="file" id="hosts-file" accept=".json"/>
+          <button class="btn" id="hosts-import">Import</button>
         </div>
-      </div>
-      <div class="col-md">
-        <div class="accordion">
-          <div class="accordion-item border-primary">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#serversID" aria-expanded="false" aria-controls="serversID">
-                <h5>Servers</h5>
-              </button>
-            </h3>
-            <div id="serversID" class="accordion-collapse collapse show">
-              <div class="accordion-body">
-                <div class="input-group mb-4">
-                  <span class="input-group-text btn btn-outline-primary disabled" id="select-btn">Select server</span>
-                  <select id="select-main" class="form-select">
-                  </select>
-                </div>
-                <table class="table table-borderless">
-                  <thead>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Host</th>
-                    <th>Port</th>
-                    <th>Edit</th>
-                  </thead>
-                  <tbody id="serverList"></tbody>
-                  <template id="serverTemplate">
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <button class="edit-btn icon-button">
-                          <img class="icon-button" src="../icons/arrow-down-square.svg">
-                        </button>
-                      </td>
-                    </tr>
-                  </template>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item border-primary">
-            <h3 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#addID" aria-expanded="false" aria-controls="addID">
-                <h5>Add/Edit</h5>
-              </button>
-            </h3>
-            <div id="addID" class="accordion-collapse collapse">
-              <div class="accordion-body">
-                <form id="addForm">
-                  <input name="index" type="hidden" id="formID" value="-1">
-                  <table class="table table-borderless">
-                  <tr>
-                    <td>Name</td>
-                    <td>
-                      <div class="input-group">
-                        <input name="name" class="form-control" style="width: 70%;">
-                        <input name="color" class="form-control" value="#2a6cff" style="height: auto;" type="color">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Type</td>
-                    <td>
-                      <select name="type" class="form-select">
-                        <option value="http">HTTP</option>
-                        <option value="https">HTTPS</option>
-                        <option value="socks">SOCKS5</option>
-                        <option value="socks4">SOCKS4</option>
-                        <option value="direct">DIRECT</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Host</td>
-                    <td>
-                      <input name="host" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Port</td>
-                    <td>
-                      <input name="port" class="form-control" type="number">
-                    </td>
-                  </tr>
-                  </table>
-                  <button class="btn btn-primary" type="submit">Save</button>
-                  <button class="btn btn-danger" style="float: right;" type="button" id="delForm" hidden>Delete</button>
-                </form>
-              </div>
-            </div>
-          </div>
+        <div class="input-group mb-4">
+          <button class="btn" disabled>Servers</button>
+          <button class="btn-outline"><a id="servers-export">Export</a></button>
+          <input type="file" id="servers-file" accept=".json"/>
+          <button class="btn" id="servers-import">Import</button>
         </div>
-      </div>
-    </div> 
-  </div>
+        <div class="input-group">
+          <button class="btn" disabled>Ignore</button>
+          <button class="btn-outline"><a id="ignore-export">Export</a></button>
+          <input type="file" id="ignore-file" accept=".json"/>
+          <button class="btn" id="ignore-import">Import</button>
+        </div>
+      </details>
+      <details open>
+        <summary>Servers</summary>
+        <div class="input-group">
+        <span class="btn disabled" id="select-btn">Select server</span>
+        <select id="select-main">
+        </select>
+        </div>
+        <table>
+        <thead>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Host</th>
+          <th>Port</th>
+          <th>Edit</th>
+        </thead>
+        <tbody id="serverList"></tbody>
+        <template id="serverTemplate">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button class="edit-btn btn-icon">
+                <img class="btn-icon" src="../icons/arrow-down-square.svg">
+              </button>
+            </td>
+          </tr>
+        </template>
+        </table>
+      </details> 
+      <details id="edit-details">
+        <summary>Add/Edit</summary>
+        <form id="addForm">
+        <input name="index" type="hidden" id="formID" value="-1">
+        <table style="justify-content: space-evenly;">
+        <tr>
+          <td>Name</td>
+          <td>
+            <div class="input-group">
+              <input name="name" style="width: 70%;">
+              <input name="color" value="#2a6cff" style="height: auto;" type="color">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Type</td>
+          <td>
+            <select name="type">
+              <option value="http">HTTP</option>
+              <option value="https">HTTPS</option>
+              <option value="socks">SOCKS5</option>
+              <option value="socks4">SOCKS4</option>
+              <option value="direct">DIRECT</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Host</td>
+          <td>
+            <input name="host">
+          </td>
+        </tr>
+        <tr>
+          <td>Port</td>
+          <td>
+            <input name="port" type="number">
+          </td>
+        </tr>
+        </table>
+        <button type="submit" class="btn">Save</button>
+        <button style="float: right;" type="button" id="delForm" class="btn-danger" hidden>Delete</button>
+        </form>
+      </details>
+    </div>
+
     <script src="options-hosts.js"></script>
     <script src="options-ignore.js"></script>
     <script src="options-servers.js"></script>
