@@ -125,45 +125,30 @@
       </details> 
       <details id="edit-details">
         <summary>Add/Edit</summary>
-        <form id="addForm">
-        <input name="index" type="hidden" id="formID" value="-1">
-        <table style="justify-content: space-evenly;">
-        <tr>
-          <td>Name</td>
-          <td>
-            <div class="input-group">
-              <input name="name" style="width: 70%;">
-              <input name="color" value="#2a6cff" style="height: auto;" type="color">
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>Type</td>
-          <td>
-            <select name="type">
-              <option value="http">HTTP</option>
-              <option value="https">HTTPS</option>
-              <option value="socks">SOCKS5</option>
-              <option value="socks4">SOCKS4</option>
-              <option value="direct">DIRECT</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Host</td>
-          <td>
-            <input name="host">
-          </td>
-        </tr>
-        <tr>
-          <td>Port</td>
-          <td>
-            <input name="port" type="number">
-          </td>
-        </tr>
-        </table>
-        <button type="submit" class="btn">Save</button>
-        <button style="float: right;" type="button" id="delForm" class="btn-danger" hidden>Delete</button>
+        <form id="addForm" style="display: grid;">
+          <input name="index" type="hidden" id="formID" value="-1">        
+          <label for="namecolor">Name, Color</label>
+          <div class="input-group" name="namecolor">
+            <input name="name" style="width: 70%;" placeholder="Name">
+            <input name="color" value="#2a6cff" style="height: auto;" type="color">
+          </div>
+          <label for="type">Type</label>
+          <select name="type">
+            <option value="http">HTTP</option>
+            <option value="https">HTTPS</option>
+            <option value="socks">SOCKS5</option>
+            <option value="socks4">SOCKS4</option>
+            <option value="direct">DIRECT</option>
+          </select>
+          <label for="host">Host</label>
+          <input name="host" placeholder="Host">
+          <label for="port">Port</label>
+          <input name="port" type="number" placeholder="Port">
+          <div class="input-group">
+            <button type="submit" class="btn">Save</button>
+            <span style="width: 100%"></span>
+            <button type="button" id="delForm" class="btn-danger" hidden>Delete</button>
+          </div>
         </form>
       </details>
     </div>

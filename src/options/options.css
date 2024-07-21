@@ -14,7 +14,7 @@
 
   --d-margin: 10px;
   --d-padding: 10px;
-  --d-radius: 4px;
+  --d-radius: 5px;
 }
 
 /* TAGS */
@@ -31,9 +31,19 @@ a:visited {
   color: var(--c-dark-purple);
 }
 
+/* label */
+input, label {
+  display:block;
+}
+label {
+  color: var(--c-dark);
+  font-size: small;
+  font-weight: bold;
+  padding-left: var(--d-padding);
+}
+
 /* input */
 input, select {
-  align-content: stretch;
   background-color: var(--c-x-light);
   border-radius: var(--d-radius);
   border: 1px solid var(--c-dark);
@@ -51,7 +61,7 @@ input:focus{
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: var(--d-margin);
 }
 th {
   padding: 12px;
