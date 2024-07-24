@@ -72,21 +72,35 @@
     </div>
     <div class="col">
       <details>
+        <summary>Backup</summary>
+        <p>Add-on can only download backup in default download dir. Set backup interval (days). Set 0 to disable.</p>
+        <div class="input-group">
+          <input type="number" id="bkp-days">
+          <button class="btn-empty" disabled>days</button>
+        </div>
+      </details>
+      <details>
         <summary>Import/Export</summary>
         <div class="input-group">
-          <button class="btn" disabled>Hosts</button>
+          <button class="btn-empty" disabled>All</button>
+          <button class="btn-outline"><a id="all-export">Export</a></button>
+          <input type="file" id="all-file" accept=".json"/>
+          <button class="btn" id="all-import">Import</button>
+        </div>
+        <div class="input-group">
+          <button class="btn-empty" disabled>Hosts</button>
           <button class="btn-outline"><a id="hosts-export">Export</a></button>
           <input type="file" id="hosts-file" accept=".json"/>
           <button class="btn" id="hosts-import">Import</button>
         </div>
         <div class="input-group mb-4">
-          <button class="btn" disabled>Servers</button>
+          <button class="btn-empty" disabled>Servers</button>
           <button class="btn-outline"><a id="servers-export">Export</a></button>
           <input type="file" id="servers-file" accept=".json"/>
           <button class="btn" id="servers-import">Import</button>
         </div>
         <div class="input-group">
-          <button class="btn" disabled>Ignore</button>
+          <button class="btn-empty" disabled>Ignore</button>
           <button class="btn-outline"><a id="ignore-export">Export</a></button>
           <input type="file" id="ignore-file" accept=".json"/>
           <button class="btn" id="ignore-import">Import</button>
@@ -95,7 +109,7 @@
       <details open>
         <summary>Servers</summary>
         <div class="input-group">
-        <span class="btn disabled" id="select-btn">Select server</span>
+        <span class="btn-empty" id="select-btn">Select server</span>
         <select id="select-main">
         </select>
         </div>
@@ -157,6 +171,7 @@
     <script src="options-ignore.js"></script>
     <script src="options-servers.js"></script>
     <script src="options-file.js"></script>
+    <script src="options-backup.js"></script>
   </body>
 
 </html>

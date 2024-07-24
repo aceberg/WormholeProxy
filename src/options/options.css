@@ -98,7 +98,7 @@ details[open] summary {
 }
 
 /* btn */
-.btn, .btn-danger, .btn-outline {
+.btn, .btn-danger, .btn-outline, .btn-empty {
   color: var(--c-x-light);
   background-color: var(--c-dark);
   border-radius: var(--d-radius);
@@ -117,6 +117,10 @@ details[open] summary {
 .btn-danger:hover {
   background-color: var(--c-red-dark);
 }
+.btn-empty {
+  color: var(--c-black);
+  background-color: var(--c-middle);
+}
 .btn-outline {
   color: var(--c-dark);
   background-color: var(--c-light);
@@ -124,6 +128,9 @@ details[open] summary {
 .btn-outline:hover {
   color: var(--c-x-light);
   background-color: var(--c-dark);
+}
+.btn-outline:hover a {
+  color: var(--c-x-light);
 }
 
 /* btn-icon */

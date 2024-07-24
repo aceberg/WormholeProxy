@@ -11,6 +11,7 @@ browser.storage.sync.get(data => {
   };
 
   const today = new Date().toLocaleDateString('en-CA');
+  const all = {hosts: proxyHosts, servers: proxyServers, ignore: ignoreHosts};
 
   // Export Hosts
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(proxyHosts));
@@ -29,6 +30,12 @@ browser.storage.sync.get(data => {
   const hExport2 = document.getElementById('ignore-export');
   hExport2.setAttribute("href",     dataStr2    );
   hExport2.setAttribute("download", "WormholeProxy-ignore-"+today+".json");
+
+  // Export All
+  const dataStr3 = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(all));
+  const hExport3 = document.getElementById('all-export');
+  hExport3.setAttribute("href",     dataStr3    );
+  hExport3.setAttribute("download", "WormholeProxy-all-"+today+".json");
 });
 
 // Import Hosts
@@ -76,6 +83,25 @@ document.getElementById('ignore-import').addEventListener('click', () => {
       
         const ignoreHosts = JSON.parse(event.target.result);
         saveIgnoreHosts(ignoreHosts);
+         
+    };
+    reader.readAsText(file);
+  }
+});
+
+// Import All
+document.getElementById('all-import').addEventListener('click', () => {
+  const fileInput = document.getElementById('all-file');
+  const file = fileInput.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      
+        const all = JSON.parse(event.target.result);
+        saveProxyHosts(all.hosts);
+        saveProxyServers(all.servers);
+        saveIgnoreHosts(all.ignore);
          
     };
     reader.readAsText(file);
