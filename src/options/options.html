@@ -3,7 +3,6 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- ocean theme -->
     <link rel="stylesheet" href="options.css"/>    
   </head>
 
@@ -73,7 +72,12 @@
     <div class="col">
       <details>
         <summary>Backup</summary>
-        <p>Add-on can only download backup in default download dir. Set backup interval (days). Set 0 to disable.</p>
+        <p>New backup will only be created: </p>
+        <ul>
+          <li>in default download dir</li>
+          <li>when Hosts, Ignore or Servers list is changed and-</li>
+          <li>when set below number of days passed since previous backup (0 means disabled)</li>
+        </ul>
         <div class="input-group">
           <input type="number" id="bkp-days">
           <button class="btn-empty" disabled>days</button>
