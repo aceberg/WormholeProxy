@@ -72,6 +72,7 @@ form1.addEventListener("submit", (event) => {
   oneServer.type = formData1.get('type');
   oneServer.host = formData1.get('host');
   oneServer.port = formData1.get('port');
+  oneServer.proxyDNS = JSON.parse(formData1.get('dns'));
 
   if (i > -1) {
     proxyServers.splice(i, 1);
@@ -93,6 +94,7 @@ function fillForm(index) {
   form2.elements['type'].value = pr.type;
   form2.elements['host'].value = pr.host;
   form2.elements['port'].value = pr.port;
+  form2.elements['dns'].value = pr.proxyDNS;
 
   document.getElementById("delForm").hidden = false;
 };

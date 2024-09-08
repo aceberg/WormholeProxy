@@ -2,6 +2,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2024-09-09
+### Added
+- Proxy DNS option
+- About
+
 ## [0.4] - 2024-07-26
 ### Added
 - Import/Export All config

@@ -1,6 +1,6 @@
 # Wormhole-Proxy
 
-Firefox Addon - easy to use proxy manager
+Firefox Addon - single-list proxy manager
 
 Menu             |  Options page
 :-------------------------:|:-------------------------:

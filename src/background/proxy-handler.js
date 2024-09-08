@@ -57,7 +57,7 @@ function handleProxyRequest(requestInfo) {
       browser.browserAction.setBadgeText({text: mainServer.name});
 
       console.log(`Proxying: ${url.hostname} through ${mainServer.name}`);
-      return {type: mainServer.type, host: mainServer.host, port: mainServer.port}; // proxy.ProxyInfo
+      return {type: mainServer.type, host: mainServer.host, port: mainServer.port, proxyDNS: mainServer.proxyDNS}; // proxy.ProxyInfo
     } else {
       browser.browserAction.setBadgeText({text: ""});
     }
