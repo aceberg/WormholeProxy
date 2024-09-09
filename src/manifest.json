@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Wormhole Proxy",
-  "description": "Easy to use proxy manager",
+  "description": "Single-list proxy manager",
   "homepage_url": "https://github.com/aceberg/WormholeProxy",
-  "version": "0.4",
+  "version": "0.4.1",
 
   "icons": {
     "512": "icons/wormhole0.png"
