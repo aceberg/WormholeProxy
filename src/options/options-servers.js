@@ -131,7 +131,7 @@ function displaySelect() {
     opt.textContent = `${mainServer.name}, ${mainServer.host}:${mainServer.port}`;
   } else {
     opt.textContent = 'Please, select default server';
-    document.getElementById('select-btn').classList.remove('btn-outline-primary');
+    document.getElementById('select-btn').classList.remove('btn-empty');
     document.getElementById('select-btn').classList.add('btn-danger');
   }
   select.appendChild(opt);
