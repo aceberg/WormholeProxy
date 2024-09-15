@@ -3,7 +3,7 @@
   "name": "Wormhole Proxy",
   "description": "Single-list proxy manager",
   "homepage_url": "https://github.com/aceberg/WormholeProxy",
-  "version": "0.4.1",
+  "version": "0.4.2",
 
   "icons": {
     "512": "icons/wormhole0.png"

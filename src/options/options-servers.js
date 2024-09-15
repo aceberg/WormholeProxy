@@ -1,11 +1,20 @@
 let proxyServers = [];
 let mainServer = {};
 
-// Get local proxyServers
+// Get proxyServers from Sync
 browser.storage.sync.get(data => {
   if (data.proxyServers) {
     proxyServers = data.proxyServers;
   }
+
+  // Get mainServer from Local storage
+  browser.storage.local.get(data => {
+    if (data.mainServer) {
+      mainServer = data.mainServer;
+    }
+
+    displaySelect(proxyServers);
+  });
 
   displayProxyServers();
 
@@ -19,14 +28,6 @@ browser.storage.sync.get(data => {
       document.getElementById('edit-details').open = true;
     });
   }
-});
-
-browser.storage.local.get(data => {
-  if (data.mainServer) {
-    mainServer = data.mainServer;
-  }
-
-  displaySelect();
 });
 
 // Listen for changes in local storage
@@ -46,7 +47,7 @@ selectMain.addEventListener("change", () => {
 
   mainServer = proxyServers[i];
   saveMainServer(mainServer);
-  displaySelect();
+  displaySelect(proxyServers);
 });
 
 // Listen to Delete button click
@@ -73,6 +74,13 @@ form1.addEventListener("submit", (event) => {
   oneServer.host = formData1.get('host');
   oneServer.port = formData1.get('port');
   oneServer.proxyDNS = JSON.parse(formData1.get('dns'));
+  oneServer.username = formData1.get('username');
+  oneServer.password = formData1.get('password');
+
+  if (oneServer.username == "undefined") {
+    oneServer.username = "";
+    oneServer.password = "";
+  }
 
   if (i > -1) {
     proxyServers.splice(i, 1);
@@ -95,6 +103,8 @@ function fillForm(index) {
   form2.elements['host'].value = pr.host;
   form2.elements['port'].value = pr.port;
   form2.elements['dns'].value = pr.proxyDNS;
+  form2.elements['username'].value = pr.username;
+  form2.elements['password'].value = pr.password;
 
   document.getElementById("delForm").hidden = false;
 };
@@ -111,12 +121,13 @@ function saveProxyServers(proxyServers) {
     proxyServers: proxyServers
   });
 
-  // Update page
-  location.reload();
+  displaySelect(proxyServers);
 };
 
-function displaySelect() {
+function displaySelect(pServers) {
   const select = document.getElementById('select-main');
+
+  // console.log("displaySelect:", pServers);
   
   let opt;
   let i = 0;
@@ -136,7 +147,7 @@ function displaySelect() {
   }
   select.appendChild(opt);
 
-  for (let serv of proxyServers){
+  for (let serv of pServers){
 
     opt = document.createElement("option");
     opt.textContent = `${serv.name}, ${serv.host}:${serv.port}`;
