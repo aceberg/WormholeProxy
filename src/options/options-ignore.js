@@ -36,11 +36,18 @@ sortIgnBtn.addEventListener("click", async (event) => {
 const formIgn = document.getElementById("newHostIgnore");
 formIgn.addEventListener("submit", async (event) => {
   const formData = new FormData(formIgn);
-  const host = formData.get('host');
+  let host = formData.get('host');
+  const hostURL = URL.parse(host);
 
-  ignoreHosts.push(host);
-
-  saveIgnoreHosts(ignoreHosts);
+  if (hostURL != null) {
+    host = hostURL.hostname;
+  }
+  
+  if (host != '') {
+    host = host.replace('www.','');
+    ignoreHosts.push(host);
+    saveIgnoreHosts(ignoreHosts);
+  }
 });
 
 function saveIgnoreHosts(ignoreHosts) {

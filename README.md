@@ -1,4 +1,4 @@
-# Wormhole-Proxy
+# WormholeProxy
 
 Firefox Addon - single-list proxy manager. Made to be as simple as possible for non-tech users.    
 Features:

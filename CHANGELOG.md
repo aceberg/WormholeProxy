@@ -2,6 +2,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.4.3] - 2024-09-16
+### Added
+- URL parse when adding host
+
 ## [0.4.2] - 2024-09-16
 ### Added
 - Username and Password for Socks proxy

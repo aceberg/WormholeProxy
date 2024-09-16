@@ -38,7 +38,12 @@ const form = document.getElementById("newHost");
 form.addEventListener("submit", async (event) => {
   const formData = new FormData(form);
   let host = formData.get('host');
+  const hostURL = URL.parse(host);
 
+  if (hostURL != null) {
+    host = hostURL.hostname;
+  }
+  
   if (host != '') {
     host = host.replace('www.','');
     proxyHosts.push(host);
