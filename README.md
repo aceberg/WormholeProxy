@@ -1,4 +1,4 @@
-# WormholeProxy
+# Wormhole Proxy
 
 Firefox Addon - single-list proxy manager. Made to be as simple as possible for non-tech users.    
 Features:
@@ -7,8 +7,12 @@ Features:
 - Local backup
 - `Add this page` button
 
-[Download](https://github.com/aceberg/WormholeProxy/releases/latest)
+### Download
 
+<a href="https://addons.mozilla.org/en-US/firefox/addon/wormhole-proxy/"><img src="./assets/firefox.png" height="50"></a>&nbsp;&nbsp;
+<a href="https://github.com/aceberg/WormholeProxy/releases/latest"><img src="./assets/github.png" height="50"></a>
+
+### Screenshots
 
 Menu             |  Options page
 :-------------------------:|:-------------------------:

@@ -2,8 +2,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [0.4.3] - 2024-09-16
+## [0.4.3] - 2024-09-17
 ### Added
+- Download from Firefox Add-ons: [link](https://addons.mozilla.org/en-US/firefox/addon/wormhole-proxy/)
 - URL parse when adding host
 
 ## [0.4.2] - 2024-09-16
