@@ -2,6 +2,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.4.4] - 2025-09-19
+### Added
+- Custom proxy for host (Exceptions)
+
 ## [0.4.3] - 2024-09-17
 ### Added
 - Download from Firefox Add-ons: [link](https://addons.mozilla.org/en-US/firefox/addon/wormhole-proxy/)
