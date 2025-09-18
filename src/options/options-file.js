@@ -9,9 +9,12 @@ browser.storage.sync.get(data => {
   if (data.ignoreHosts) {
     ignoreHosts = data.ignoreHosts;
   };
+  if (data.exHosts) {
+    exHosts = data.exHosts;
+  }
 
   const today = new Date().toLocaleDateString('en-CA');
-  const all = {hosts: proxyHosts, servers: proxyServers, ignore: ignoreHosts};
+  const all = {hosts: proxyHosts, servers: proxyServers, ignore: ignoreHosts, except: exHosts};
 
   // Export Hosts
   const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(proxyHosts));
@@ -102,6 +105,7 @@ document.getElementById('all-import').addEventListener('click', () => {
         saveProxyHosts(all.hosts);
         saveProxyServers(all.servers);
         saveIgnoreHosts(all.ignore);
+        saveExHosts(all.except);
          
     };
     reader.readAsText(file);

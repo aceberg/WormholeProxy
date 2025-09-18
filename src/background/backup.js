@@ -1,8 +1,6 @@
 let enableBackup = 0;
 let lastBackupDate;
 
-let proxyServers = [];
-
 // Listen for changes in sync storage
 browser.storage.sync.onChanged.addListener(changeData => {
   if (changeData.proxyHosts) {
@@ -13,6 +11,9 @@ browser.storage.sync.onChanged.addListener(changeData => {
   }
   if (changeData.proxyServers) {
     proxyServers = changeData.proxyServers.newValue;
+  }
+  if (changeData.exHosts) {
+    exHosts = changeData.exHosts.newValue;
   }
 
   browser.storage.local.get(data1 => {
@@ -31,7 +32,7 @@ browser.storage.sync.onChanged.addListener(changeData => {
         lastBackupDate: lastBackupDate
       });
 
-      const all = {hosts: proxyHosts, servers: proxyServers, ignore: ignoreHosts};
+      const all = {hosts: proxyHosts, servers: proxyServers, ignore: ignoreHosts, except: exHosts};
       generateBackup(all);
     }
   });

@@ -1,15 +1,22 @@
-
+let proxyServers = [];
 let proxyHosts = [];
 let ignoreHosts = [];
+let exHosts = [];
 let mainServer = {};
 let workMode = 0;
 
 browser.storage.sync.get(data => {
+  if (data.proxyServers) {
+    proxyServers = data.proxyServers;
+  };
   if (data.proxyHosts) {
     proxyHosts = data.proxyHosts;
   };
   if (data.ignoreHosts) {
     ignoreHosts = data.ignoreHosts;
+  };
+  if (data.exHosts) {
+    exHosts = data.exHosts;
   };
 });
 
@@ -20,16 +27,6 @@ browser.storage.local.get(data => {
   if (data.mainServer) {
     mainServer = data.mainServer;
   };
-});
-
-// Listen for changes in sync storage
-browser.storage.sync.onChanged.addListener(changeData => {
-  if (changeData.proxyHosts) {
-    proxyHosts = changeData.proxyHosts.newValue;
-  }
-  if (changeData.ignoreHosts) {
-    ignoreHosts = changeData.ignoreHosts.newValue;
-  }
 });
 
 // Listen for changes in local storage
@@ -46,11 +43,22 @@ browser.storage.local.onChanged.addListener(changeData => {
 browser.proxy.onRequest.addListener(handleProxyRequest, {urls: ["<all_urls>"]});
 
 function handleProxyRequest(requestInfo) {
+  const url = new URL(requestInfo.url);
+  const hostname = url.hostname;
+
+  const host = inExList(hostname);
+  if (host !== null) {
+    const serv = getProxyByName(host.proxy);
+    if (serv !== null) {
+      browser.browserAction.setBadgeBackgroundColor({ color: serv.color });
+      browser.browserAction.setBadgeText({text: serv.name});
+
+      console.log(`Proxying: ${url.hostname} through ${serv.name}`);
+      return {type: serv.type, host: serv.host, port: serv.port, proxyDNS: serv.proxyDNS, username: serv.username, password: serv.password};
+    }
+  }
 
   if (mainServer.host != undefined) {
-    const url = new URL(requestInfo.url);
-    const hostname = url.hostname;
-
     if ((inProxyList(hostname) && (workMode != -1)) || (workMode == 1 && !inIgnoreList(hostname))) {
 
       browser.browserAction.setBadgeBackgroundColor({ color: mainServer.color });
@@ -93,3 +101,26 @@ function inIgnoreList(hostname) {
   // console.log(hostname, false);
   return false
 };
+
+function inExList(hostname) {
+
+  for (let host of exHosts) {
+    if (hostname == host.name || hostname.includes('.'+host.name)) {
+      // console.log(hostname, true);
+      return host;
+    }
+  }
+  // console.log(hostname, false);
+  return null;
+};
+
+function getProxyByName(name) {
+
+  for (let s of proxyServers) {
+    if (s.name === name) {
+      return s;
+    }
+  }
+
+  return null;
+}

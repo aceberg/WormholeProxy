@@ -16,7 +16,7 @@
           <li><a target="_blank" href="https://github.com/aceberg/WormholeProxy">https://github.com/aceberg/WormholeProxy</a></li>
         </ul>
       </details>
-      <details open>
+      <details>
         <summary>Hosts to proxy</summary>
         <form id="newHost" class="input-group">
           <input name="host" placeholder="New host"></input>
@@ -46,7 +46,7 @@
           </tbody>
         </table>
       </details>
-      <details open>
+      <details>
         <summary>Ignore in Proxy All mode</summary>
         <form id="newHostIgnore" class="input-group">
           <input name="host" placeholder="New host"></input>
@@ -68,6 +68,39 @@
                 </td>
                 <td>
                   <button class="ign-del-btn btn-icon">
+                    <img class="btn-icon" src="../icons/x-square.svg">
+                  </button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </details>
+      <details open>
+        <summary>Exceptions</summary>
+        <form id="newHostEx" class="input-group">
+          <input name="host" placeholder="New host"></input>
+          <input name="proxy" placeholder="Proxy name"></input>
+          <button type="submit" class="btn">Add</button>
+        </form>
+        <table>
+          <thead>
+            <th></th>
+            <th style="width: 80%;">Host <img id="sortExBtn" class="btn-icon" src="../icons/sort-down-alt.svg"></img>
+            </th>
+            <th>Proxy</th>
+            <th style="width: 10%;">Del</th>
+          </thead>
+          <tbody id="exList">
+            <template id="exTemplate">
+              <tr>
+                <td style="opacity: 45%;"></td>
+                <td>
+                  <a target="_blank"></a>
+                </td>
+                <td></td>
+                <td>
+                  <button class="ex-del-btn btn-icon">
                     <img class="btn-icon" src="../icons/x-square.svg">
                   </button>
                 </td>
@@ -193,6 +226,7 @@
     <script src="options-servers.js"></script>
     <script src="options-file.js"></script>
     <script src="options-backup.js"></script>
+    <script src="options-except.js"></script>
   </body>
 
 </html>
