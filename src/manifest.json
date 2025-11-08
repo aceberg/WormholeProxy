@@ -3,7 +3,7 @@
   "name": "Wormhole Proxy",
   "description": "Single-list proxy manager",
   "homepage_url": "https://github.com/aceberg/WormholeProxy",
-  "version": "0.4.4",
+  "version": "0.4.5",
 
   "icons": {
     "512": "icons/wormhole0.png"
@@ -12,7 +12,10 @@
   "browser_specific_settings": {
     "gecko": {
       "strict_min_version": "91.1.0",
-      "id": "WormholeProxy@aceberg.github.io"
+      "id": "WormholeProxy@aceberg.github.io",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
 

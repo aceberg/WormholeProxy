@@ -2,6 +2,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.4.5] - 2025-11-09
+### Fixed
+- Bug (Proxy for Exceptions was not disabled in Turn Off mode)
+
+### Added
+```json
+"data_collection_permissions": {
+    "required": ["none"]
+}
+```
+
 ## [0.4.4] - 2025-09-19
 ### Added
 - Custom proxy for host (Exceptions)

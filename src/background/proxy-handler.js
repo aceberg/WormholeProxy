@@ -46,6 +46,10 @@ function handleProxyRequest(requestInfo) {
   const url = new URL(requestInfo.url);
   const hostname = url.hostname;
 
+  if (workMode == -1) {
+    return {type: "direct"};
+  }
+
   const host = inExList(hostname);
   if (host !== null) {
     const serv = getProxyByName(host.proxy);
@@ -59,7 +63,7 @@ function handleProxyRequest(requestInfo) {
   }
 
   if (mainServer.host != undefined) {
-    if ((inProxyList(hostname) && (workMode != -1)) || (workMode == 1 && !inIgnoreList(hostname))) {
+    if (inProxyList(hostname) || (workMode == 1 && !inIgnoreList(hostname))) {
 
       browser.browserAction.setBadgeBackgroundColor({ color: mainServer.color });
       browser.browserAction.setBadgeText({text: mainServer.name});
@@ -82,11 +86,9 @@ function inProxyList(hostname) {
 
   for (let host of proxyHosts) {
     if (hostname == host || hostname.includes('.'+host)) {
-      // console.log(hostname, true);
       return true
     }
   }
-  // console.log(hostname, false);
   return false
 };
 
@@ -94,11 +96,9 @@ function inIgnoreList(hostname) {
 
   for (let host of ignoreHosts) {
     if (hostname == host || hostname.includes('.'+host)) {
-      // console.log(hostname, true);
       return true
     }
   }
-  // console.log(hostname, false);
   return false
 };
 
@@ -106,11 +106,9 @@ function inExList(hostname) {
 
   for (let host of exHosts) {
     if (hostname == host.name || hostname.includes('.'+host.name)) {
-      // console.log(hostname, true);
       return host;
     }
   }
-  // console.log(hostname, false);
   return null;
 };
 
